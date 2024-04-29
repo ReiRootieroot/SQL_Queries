@@ -1,0 +1,34 @@
+-- Get average score of 5 exams of student #1
+-- Introducing SUM() and AVG()
+SELECT (SUM(Grade)/COUNT(*)) AS AverageScore
+FROM StudentEnrollments
+WHERE StudentId = 1
+
+SELECT AVG(Grade) AS AverageScore
+FROM StudentEnrollments
+WHERE StudentId = 1
+
+-- Get first 5 students
+-- Introducing LIMIT operator
+SELECT *
+FROM Students
+LIMIT 5
+
+-- Get last 5 students according to StudentId
+-- Introducing ORDER BY operator and DESC, ASC
+SELECT *
+FROM Students
+ORDER BY StudentId DESC
+LIMIT 5
+
+-- Get list of nationalities of students
+-- Introducing DISTINCT(column)
+SELECT DISTINCT(Nationality)
+FROM Students
+
+-- Get list of nationalities of students and return nationalities with at least 2 people
+-- Introducing GROUP BY operator
+SELECT Nationality, COUNT(Nationality) AS NumberOfPeople
+FROM Students
+GROUP BY Nationality
+HAVING COUNT(Nationality) >= 2

@@ -1,0 +1,34 @@
+-- Given the Students and StudentEnrollments table in 'Initial_Tables_Script.txt', solve the following problems.
+
+-- PROBLEM 1
+-- What are the last names and count of each last name in the student list?
+SELECT Distinct(LastName), COUNT(LastName) AS NumberOfLastNames
+FROM Students
+GROUP BY LastName
+
+-- PROBLEM 2
+-- Ensure the list in PROBLEM 1 is ordered from highest to lowest count
+SELECT Distinct(LastName), COUNT(LastName) AS NumberOfLastNames
+FROM Students
+GROUP BY LastName
+ORDER BY COUNT(LastName) DESC
+
+-- PROBLEM 3
+-- Get all information of the 5 youngest students.
+SELECT *
+FROM Students
+ORDER BY DateOfBirth DESC
+LIMIT 5
+
+-- PROBLEM 4
+-- What is the average score of all exams taken? (Use StudentEnrollments table)
+SELECT AVG(Grade) as AverageScore
+FROM StudentEnrollments
+
+-- PROBLEM 5
+-- Get a list of nationalities that have a letter C and have at least 2 students.
+SELECT Nationality, COUNT(Nationality)
+FROM Students
+WHERE Nationality LIKE '%c%'
+GROUP BY Nationality
+HAVING COUNT(Nationality) >= 2

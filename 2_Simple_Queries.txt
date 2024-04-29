@@ -1,0 +1,51 @@
+-- Get entire Students table
+SELECT *
+FROM Students
+
+-- Get the StudentId, FirstName, LastName from Students table
+SELECT StudentId, FirstName, LastName
+FROM Students
+
+-- Get the StudentId, FirstName, LastName from Students table with LastName of 'Duck'
+SELECT StudentId, FirstName, LastName
+FROM Students
+WHERE LastName = 'Duck'
+
+-- Get the StudentId, FirstName, LastName from Students table with LastName of 'Duck' or 'Mouse'
+-- Introducing the IN operator
+SELECT StudentId, FirstName, LastName
+FROM Students
+WHERE LastName = 'Duck' OR LastName = 'Mouse';
+
+SELECT StudentId, FirstName, LastName
+FROM Students
+WHERE LastName IN ('Duck', 'Mouse');
+
+-- Get all columns from Students table with FirstName of 'Mickey' and LastName of 'Mouse'
+-- Introducing the AND operator
+SELECT *
+FROM Students
+WHERE FirstName = 'Mickey' AND LastName = 'Mouse';
+
+-- Get the StudentId, FirstName, LastName from Students table that DOES NOT have LastName of 'Duck' or 'Mouse'
+-- Introducing the NOT IN operator
+SELECT StudentId, FirstName, LastName
+FROM Students
+WHERE LastName NOT IN ('Duck', 'Mouse');
+
+-- Get all columns from Students table where FirstName start with 'M'
+-- Introducing LIKE operator and '%' and '_' char
+-- 	'%' means 0, 1, or multiple chars. '_' means any one, single char.
+Select *
+FROM Students
+WHERE FirstName LIKE 'M%'
+
+-- Get all columns from Students table where FirstName has S as 2nd-to-last char
+SELECT *
+FROM Students
+WHERE FirstName LIKE '%s_'
+
+-- Get number of records in Students table
+-- Introducing "COUNT([constraint])" and AS operator
+SELECT COUNT(*) As NumberOfStudents
+FROM Students

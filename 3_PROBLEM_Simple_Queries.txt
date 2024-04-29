@@ -1,0 +1,33 @@
+-- Given the Students table in 'Initial_Tables_Script.txt', solve the following problems.
+
+-- PROBLEM 1
+-- How many students have a last name of Duck or Mouse?
+-- Answer: 6
+SELECT COUNT(*)
+FROM Students
+WHERE LastName IN ('Duck', 'Mouse)
+
+-- PROBLEM 2
+-- What is Mickey Mouse's Student ID?
+-- Answer: 1
+SELECT StudentId
+FROM Students
+WHERE FirstName = 'Mickey' AND LastName = 'Mouse';
+
+-- PROBLEM 3
+-- Give names and birthdates of all students.
+SELECT FirstName, LastName, DateOfBirth
+FROM Students
+
+-- PROBLEM 4
+-- Give names and birthdates of students born in the year 1983.
+SELECT FirstName, LastName, DateOfBirth
+FROM Students
+WHERE DateofBirth LIKE '1983%';
+
+-- PROBLEM 5
+-- How many students have C in their last name?
+-- Answer: 5
+SELECT COUNT(*)
+FROM Students
+WHERE LastName LIKE '%C%';

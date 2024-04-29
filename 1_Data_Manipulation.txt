@@ -1,0 +1,35 @@
+--Create database
+CREATE TABLE StudentsDemo
+(
+	StudentId INTEGER PRIMARY KEY,
+	FirstName VARCHAR(200) NOT NULL,
+	LastName VARCHAR(200) NOT NULL,
+	Nationality VARCHAR(100) NOT NULL,
+	DateOfBirth DATETIME NULL
+);
+
+--View current state of database
+SELECT *
+FROM StudentsDemo
+
+--Create data and place into database
+INSERT INTO Students
+	(FirstName, LastName, Nationality, DateOfBirth)
+VALUES
+	('Mickey', 'Mouse', 'American', '1991-05-02'),
+	('Donald', 'Duck', 'Japanese', '1992-11-12'),
+	('Goofy', 'Goof', 'American', '1980-04-15'),
+	('Daisy', 'Duck', 'French', '1985-02-16'),
+	('Huey', 'Duck', 'French', '1986-05-19'),
+	('Scrooge', 'McDuck', 'Japanese', '1983-11-11'),
+	('Minnie', 'Mouse', 'Canadian', '1983-11-30'),
+	('Louie', 'Duck', 'French', '1985-09-09');
+
+--Update certain pieces of data
+UPDATE StudentsDemo
+	SET FirstName = 'John'
+	WHERE FirstName = 'Mickey';
+
+--Delete data from table
+DELETE StudentsDemo
+	WHERE LastName = 'Mouse';
