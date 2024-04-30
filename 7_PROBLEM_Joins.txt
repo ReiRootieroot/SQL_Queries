@@ -1,0 +1,46 @@
+-- Given the Students, StudentEnrollments, and Classrooms tables in 'Initial_Tables_Script.txt', solve the following problems.
+
+-- PROBLEM 1
+-- Get the FirstName, LastName, and average of all grades of each student.
+SELECT s.StudentId, s.FirstName, s.LastName, AVG(se.Grade) AS 'Average Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+GROUP BY s.StudentId
+-- Could also do:
+-- GROUP BY s.FirstName, s.LastName
+
+-- PROBLEM 2
+-- What is the average of score of Donald Duck?
+-- Answer: 80.2
+SELECT s.FirstName, s.LastName, AVG(se.Grade) AS 'Average Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+WHERE FirstName = 'Donald' AND LastName = 'Duck';
+
+-- PROBLEM 3
+-- Which class of Mickey Mouse has the highest grade? (Give class name)
+SELECT s.FirstName, s.LastName, c.ClassName, se.Grade
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+INNER JOIN Classrooms c ON se.ClassroomId = c.ClassroomId
+WHERE FirstName = 'Mickey' AND LastName = 'Mouse'
+ORDER BY se.Grade DESC
+LIMIT 1
+
+-- PROBLEM 4
+-- Get the average score for each class. (Show class name and average score)
+SELECT c.ClassName, AVG(se.Grade) AS 'Class Average'
+FROM StudentEnrollments se
+INNER JOIN Classrooms c ON se.ClassroomId = c.ClassroomId
+GROUP BY c.ClassName
+
+-- PROBLEM 5
+-- Get the LastName, FirstName, ClassName and weighted grade (weight * grade) of each student.
+SELECT s.LastName, s.FirstName, c.ClassName, (c.Weight * se.Grade) AS 'Weighted Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+INNER JOIN Classrooms c ON se.ClassroomId = c.ClassroomId
+
+-- Orginally had: 
+-- SELECT s.LastName, s.FirstName, c.ClassName, SUM (c.Weight * se.Grade) AS 'Weighted Grade'
+-- GROUP BY s.StudentId

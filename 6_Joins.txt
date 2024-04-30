@@ -1,0 +1,11 @@
+-- Get LastName, FirstName, StudentId, and Grade of all students.
+-- Introducing INNER JOIN
+SELECT s.LastName, s.FirstName, se.ClassroomId, se.Grade
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+
+-- Get LastName, FirstName, ClassName, and Grade of all students.
+SELECT s.LastName, s.FirstName, se.ClassName, se.Grade
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+INNER JOIN Classrooms c ON se.ClassroomId = c.ClassroomId
