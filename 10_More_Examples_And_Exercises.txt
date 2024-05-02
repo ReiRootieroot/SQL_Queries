@@ -1,0 +1,53 @@
+-- Given the Students, StudentEnrollments, and Classrooms tables in 'Initial_Tables_Script.txt', solve the following problems.
+-- THIS IS MY OWN PERSONAL CODE.
+
+-- PROBLEM 1
+-- How is the Duck family when it comes to Running?
+SELECT FirstName, LastName, se.Grade AS 'Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+INNER JOIN 
+(
+	SELECT *
+	FROM Classrooms c
+	WHERE ClassName = 'Running'
+) AS cTemp ON cTemp.ClassroomId = se.ClassroomId
+WHERE LastName = 'Duck'
+-- Can also do:
+SELECT FirstName, LastName, se.Grade AS 'Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+INNER JOIN Classrooms c ON se.ClassroomId = c.ClassroomId
+WHERE s.LastName = 'Duck' AND c.ClassName = 'Running'
+
+-- PROBLEM 2
+-- What are the averages of the Duck family?
+SELECT FirstName, LastName, AVG(se.Grade) AS 'Average Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+INNER JOIN 
+(
+	SELECT *
+	FROM Classrooms c
+) AS cTemp ON cTemp.ClassroomId = se.ClassroomId
+WHERE LastName = 'Duck'
+GROUP BY s.StudentId
+-- Can also do:
+SELECT s.FirstName, s.LastName, AVG(se.Grade) as TotalGrade
+FROM Students s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+WHERE s.LastName = 'Duck'
+GROUP BY s.FirstName, s.LastName
+
+-- PROBLEM 3
+-- Are there any missing students in any of the classes? (Determine by counting attendance)
+SELECT c.ClassName, COUNT(se.StudentId) AS 'Attendance Count'
+FROM StudentEnrollments se
+INNER JOIN Classrooms c ON c.ClassroomId = se.ClassroomId
+GROUP BY se.ClassroomId
+
+-- PROBLEM 4
+-- List students born in the month of November.
+SELECT FirstName, LastName
+FROM Students
+WHERE DateOfBirth LIKE '____-12%';

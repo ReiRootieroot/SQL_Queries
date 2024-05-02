@@ -1,0 +1,24 @@
+-- What is the average score of Donald Duck?
+SELECT AVG(Grade) as 'Average Grade'
+FROM StudentEnrollments
+WHERE StudentId IN 
+(	SELECT StudentId 
+	FROM Students 
+	WHERE FirstName = 'Donald' AND LastName = 'Duck'
+)
+
+-- Above is the same as:
+SELECT AVG(Grade) AS 'Average Grade'
+FROM Student s
+INNER JOIN StudentEnrollments se ON s.StudentId = se.StudentId
+WHERE FirstName = 'Donald' AND LastName = 'Duck'
+
+-- Can also subqueries with INNER JOIN:
+SELECT tmp.StudentId, AVG(Grade) AS 'Average Grade'
+FROM StudentEnrollments se
+INNER JOIN
+(	SELECT StudentId
+	FROM Students
+	WHERE FirstName = 'Donald' AND LastName = 'Duck'
+) As tmp
+ON tmp.StudentId = se.StudentId

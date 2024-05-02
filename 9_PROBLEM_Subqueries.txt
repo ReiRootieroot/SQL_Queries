@@ -1,0 +1,65 @@
+-- Given the Students, StudentEnrollments, and Classrooms tables in 'Initial_Tables_Script.txt', solve the following problems.
+
+-- PROBLEM 1
+-- What is the final grade of Donald Duck? To compute, sum all weight * grade of each class
+SELECT tmp1.StudentId, SUM(tmp2.Weight * Grade) AS 'Final Grade'
+FROM StudentEnrollments se
+INNER JOIN
+(	SELECT StudentId
+	FROM Students
+	WHERE FirstName = 'Donald' AND LastName = 'Duck'
+) AS tmp1 ON tmp1.StudentId = se.StudentId
+INNER JOIN
+( 	SELECT ClassroomId, Weight
+	FROM Classrooms
+) AS tmp2 ON tmp2.ClassroomId = se.ClassroomId
+-- Simplified version given:
+SELECT SUM(c.Weight * se.Grade) AS 'Final Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se AS s.StudentId = se.StudentId
+INNER JOIN Classrooms c AS se.ClassroomId = c.ClassroomId
+WHERE FirstName = 'Donald' AND LastName = 'LastName'
+
+-- PROBLEM 2
+-- What is the final grade of all students? Show FirstName, LastName, and final grade.
+SELECT FirstName, LastName, SUM(tmp2.Weight * tmp1.Grade) AS 'Final Grade'
+FROM Students s
+INNER JOIN
+(	SELECT *
+	FROM StudentEnrollments
+) AS tmp1 ON tmp1.StudentId = s.StudentId
+INNER JOIN
+( 	SELECT ClassroomId, Weight
+	FROM Classrooms
+) AS tmp2 ON tmp2.ClassroomId = tmp1.ClassroomId
+GROUP BY s.StudentId
+-- Simplified version given:
+SELECT FirstName, LastName, SUM(c.Weight * se.Grade) AS 'Final Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se AS s.StudentId = se.StudentId
+INNER JOIN Classrooms c AS se.ClassroomId = c.ClassroomId
+GROUP BY s.StudentId
+
+-- PROBLEM 3
+-- Get average grade of each student for Running and Acting classes. Show FirstName, LastName, and average grade of the 2 classes.
+SELECT FirstName, LastName, AVG(Grade) AS 'Average Grade'
+FROM Students s
+INNER JOIN
+(	SELECT *
+	FROM StudentEnrollments
+) AS tmp1 ON tmp1.StudentId = s.StudentId
+INNER JOIN
+( 	SELECT ClassroomId, Weight
+	FROM Classrooms
+	WHERE ClassName IN ('Running', 'Acting')
+) AS tmp2 ON tmp2.ClassroomId = tmp1.ClassroomId
+GROUP BY s.StudentId
+-- Simplified version given:
+SELECT FirstName, LastName, AVG(c.Temp.Grade) AS 'Average Grade'
+FROM Students s
+INNER JOIN StudentEnrollments se AS s.StudentId = se.StudentId
+( 	SELECT ClassroomId, Weight
+	FROM Classrooms
+	WHERE ClassName IN ('Running', 'Acting')
+) AS cTemp ON cTemp.ClassroomId = se.ClassroomId
+GROUP BY s.StudentId
